@@ -1,16 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package butelka;
 
 import java.util.Random;
-
-/**
- *
- * @author mostrowski
- */
 public class Butelka {
 
     double pojemnosc;
@@ -36,16 +26,12 @@ public class Butelka {
 
     /*
         //TODO wypisanie statusu
-*Czy jest jakiś fajniejszy sposób do wypisania tych wartości ?
+        *Czy jest jakiś fajniejszy sposób do wypisania tych wartości ?
      */
     String getStatus(int nrButelki) {
         return ("zawartość butelki " + nrButelki + " , " + this.zawartosc + " z " + this.pojemnosc + "litrów");
     }
 
-    /**
-     *
-     *
-     */
     boolean wlej(double ile) {
         if (ile > (this.pojemnosc - this.zawartosc)) {
             System.out.println("Wlewam do pełna " + (this.pojemnosc - this.zawartosc) + "litrów");
@@ -58,50 +44,40 @@ public class Butelka {
         }
     }
 
-    boolean wylej(double ile) {
+    void wylej(double ile) {
         if (ile > this.zawartosc) {
             System.out.println("Sorry ale w tej butelce jest tylko " + this.zawartosc + "litrów. \n" + "Wlewam całość " + ile + "litrów");
             this.zawartosc = 0;
-            return true;
         } else {
             System.out.println("Wylewam " + ile + "litrów");
             this.zawartosc -= ile;
-            return true;
         }
     }
 
-    boolean przelej(double ile, Butelka gdzie) {
+    void przelej(double ile, Butelka gdzie) {
 
         if (this == gdzie) {
             System.out.println("Ej stary to te same butelki");
-            return false;
         }
 
         if (this.zawartosc < ile) {
             if (gdzie.pojemnosc - gdzie.zawartosc < ile) {
                 this.wylej(ile);
                 gdzie.wlej(ile);
-                return true;
             } else //za mało miejsca w docelowej
             {
                 System.out.println("Nie mam tyle miejsca w nowej butelce, jest tam tylko " + (gdzie.pojemnosc - gdzie.zawartosc) + " litrów i tyle przelewam");
                 this.wylej(gdzie.pojemnosc - gdzie.zawartosc);
                 gdzie.wlej(gdzie.pojemnosc - gdzie.zawartosc);
-                return false;
             }
         } else //znie mam tyle w butelce 
         {
             System.out.println("Nie mam tyle w tej bytelce jest tam tylko " + this.zawartosc + "litrów i tyle przeleję");
             this.wylej(this.zawartosc);
             gdzie.wlej(this.zawartosc);
-            return false;
-
         }
     }
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         int ileButelek = 5; //Ile butelek będzie w ruchu
         int maxOperacji = 10; //ilość operacji testowania 
@@ -121,7 +97,6 @@ public class Butelka {
             System.out.println("Pojemnosc butelki " + (i + 1) + " " + butelki[i].pojemnosc);
         }
 
-        //TODO zrobić operacje w pętli
         for (int i = 0; i < maxOperacji; i++) {
             /*
             losowanie operacji
